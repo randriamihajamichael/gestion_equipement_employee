@@ -32,6 +32,10 @@ class Equipments
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    public function __construct() {
+        $this->createdAt = new \DateTime;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
