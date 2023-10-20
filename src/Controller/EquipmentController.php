@@ -60,20 +60,18 @@ class EquipmentController extends AbstractController
     }
 
 
-    //...
-    #[Route('/api/books/{id}', name:"updateBook", methods:['PUT'])]
 
     public function updateEquipment(Request $request, SerializerInterface $serializer, Equipments $equipments, EntityManagerInterface $em, EmployeeRepository $employeeRepository): JsonResponse
     {
-        $updatedBook = $serializer->deserialize($request->getContent(),
+        $updatedEquipment = $serializer->deserialize($request->getContent(),
             Equipments::class,
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $equipments]);
         $content = $request->toArray();
         $idEmployee = $content['employee_id'] ?? -1;
-        $updatedBook->setEmployee($employeeRepository->find($idEmployee));
+        $updatedEquipment->setEmployee($employeeRepository->find($idEmployee));
 
-        $em->persist($updatedBook);
+        $em->persist($updatedEquipment);
         $em->flush();
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
