@@ -21,28 +21,33 @@ class EquipmentsRepository extends ServiceEntityRepository
         parent::__construct($registry, Equipments::class);
     }
 
-//    /**
-//     * @return Equipments[] Returns an array of Equipments objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Equipments
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
+    public function deleteEquipment($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            DELETE FROM equipments
+            WHERE id = :id
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+    }
+
+    public function findEquipmentById($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT * FROM equipments
+            WHERE id = ?
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+    }
+
 }

@@ -1,3 +1,24 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+equipments:
+    path: api/equipment
+    controller: App\Controller\EquipmentController::listesEquipments
+    methods: ['GET']
+
+detail_equipment:
+    path: /api/equipment/{id}
+    controller: App\Controller\EquipmentController::getDetailEquipment
+    methods: ['GET']
+
+create_equipment:
+    path: api/equipment/create
+    controller: App\Controller\EquipmentController::createEquipment
+    methods: ['POST']
+
+update_equipment:
+    path: api/equipment/edit/{id}
+    controller: App\Controller\EquipmentController::updateEquipment
+    methods: ['PUT']
+
+delete_equipment:
+    path: api/equipment/delete/{id}
+    controller: App\Controller\EquipmentController::deleteEquipment
+    methods: ['GET']
